@@ -13,6 +13,8 @@ Use this folder as a skill registry for AI coding assistants. Start by matching 
 ## Skill Selection Map
 
 - `project-scaffold`: Bootstrap a new codebase, repository structure, and baseline automation.
+- `astro-project-scaffold`: Scaffold production-ready Astro.js projects with Islands Architecture, Vue-first UI support, Tailwind v4, and clear flat-to-feature scaling guidance.
+- `fastapi-project-scaffold`: Scaffold production-ready FastAPI modular monolith projects with flat-first feature modules, modern Python tooling, and explicit expansion rules.
 - `architecture-system-design`: Define high-level architecture, trade-offs, ADRs, and service boundaries.
 - `backend-development`: Build APIs, data access, domain services, and reliability controls.
 - `frontend-development`: Implement UX/UI features, state flows, accessibility, and web performance.
