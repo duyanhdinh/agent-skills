@@ -1,0 +1,4 @@
+interface:
+  display_name: "FastAPI Project Scaffold"
+  short_description: "Generate a production-ready FastAPI modular monolith scaffold."
+  default_prompt: "Create a FastAPI modular monolith scaffold with flat-first feature modules and expansion rules."
