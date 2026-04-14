@@ -17,6 +17,10 @@ Use this folder as a skill registry for AI coding assistants. Start by matching 
 - `fastapi-project-scaffold`: Scaffold production-ready FastAPI modular monolith projects with flat-first feature modules, modern Python tooling, and explicit expansion rules.
 - `architecture-system-design`: Define high-level architecture, trade-offs, ADRs, and service boundaries.
 - `backend-development`: Build APIs, data access, domain services, and reliability controls.
+- `query-optimization-performance`: Diagnose slow database paths, resolve N+1 ORM issues, analyze EXPLAIN plans, and optimize indexes/pagination.
+- `database-migrations-lifecycle`: Plan and execute safe schema migrations, rollout sequencing, backward compatibility, and rollback strategy.
+- `caching-strategy-implementation`: Design and implement practical caching layers (application, query, Redis), invalidation policies, and TTL strategy.
+- `database-design-modeling`: Design scalable relational data models, constraints, indexing foundations, and schema evolution patterns.
 - `frontend-development`: Implement UX/UI features, state flows, accessibility, and web performance.
 - `code-review`: Perform risk-first review with severity, evidence, and concrete remediation.
 - `testing-strategy`: Design test plans across unit, integration, contract, and end-to-end levels.
