@@ -20,6 +20,7 @@ Use this folder as a skill registry for AI coding assistants. Start by matching 
 - `query-optimization-performance`: Diagnose slow database paths, resolve N+1 ORM issues, analyze EXPLAIN plans, and optimize indexes/pagination.
 - `database-migrations-lifecycle`: Plan and execute safe schema migrations, rollout sequencing, backward compatibility, and rollback strategy.
 - `caching-strategy-implementation`: Design and implement practical caching layers (application, query, Redis), invalidation policies, and TTL strategy.
+- `logging-strategy-implementation`: Design and implement structured logging for Python/FastAPI with correlation IDs, request timing middleware, sensitive data masking, environment-aware output (dev console vs production JSON), and readiness for distributed tracing.
 - `database-design-modeling`: Design scalable relational data models, constraints, indexing foundations, and schema evolution patterns.
 - `frontend-development`: Implement UX/UI features, state flows, accessibility, and web performance.
 - `code-review`: Perform risk-first review with severity, evidence, and concrete remediation.
