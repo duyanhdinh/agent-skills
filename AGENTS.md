@@ -38,6 +38,7 @@ Use this folder as a skill registry for AI coding assistants. Start by matching 
 - `ai-security-ethics`: Address misuse, privacy, bias, and policy compliance for AI systems.
 - `common-ai-patterns`: Reuse proven AI architecture patterns and implementation blueprints.
 - `common-coding-standards`: Enforce readability, maintainability, and consistency across repositories.
+- `oop-design-principles`: Apply SOLID, DRY, and GoF design patterns for maintainable object-oriented design and refactoring.
 
 ## Multi-Skill Composition
 
