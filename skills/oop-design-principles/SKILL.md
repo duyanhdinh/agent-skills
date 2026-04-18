@@ -24,6 +24,7 @@ Produce code that is easier to change safely by applying practical OOP design pr
 
 # Best Practices
 
+- Apply single-responsibility thinking to classes, functions, and files.
 - Prefer composition over inheritance when evolution paths are uncertain.
 - Apply DRY to behavior and business rules; avoid over-abstracting trivial duplication.
 - Use interfaces/abstractions only where substitution is needed.
@@ -31,6 +32,8 @@ Produce code that is easier to change safely by applying practical OOP design pr
 
 # Anti-Patterns
 
+- Creating god objects that coordinate too many policies, integrations, or workflows.
+- Letting one method become the system's hidden control tower with validation, branching, persistence, and side effects mixed together.
 - Introducing patterns without concrete forces (premature abstraction).
 - Treating SOLID as rigid rules instead of trade-off heuristics.
 - Using inheritance trees to share unrelated behavior.

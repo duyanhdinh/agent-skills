@@ -62,6 +62,7 @@ Generate a FastAPI project base that:
 
 ## Anti-Patterns
 - Creating deep nested folders in every module before complexity appears.
+- Letting one module file become a catch-all for routes, business logic, persistence, and helpers.
 - Putting domain logic in route handlers.
 - Executing ORM queries or session calls directly inside `service.py`.
 - Coupling schemas, ORM models, and transport contracts as one class.
