@@ -60,9 +60,20 @@ Generate a FastAPI project base that:
 - Enforce quality gates (`ruff`, `mypy`, `pytest`) from the start.
 - Prefer migration tooling (`alembic`) over ad-hoc schema changes.
 
+## Required Module Boundaries
+- Do not dump leftover module logic into `constants.py`, `helpers.py`, or `shared/utils.py`.
+- Use `constants.py` only for immutable declarations, enums, and fixed configuration for one module concern.
+- Use `helpers.py` only for a small number of closely related, side-effect-light helper functions that do not carry business rules.
+- If logic has a stable role, create a role-named file or subpackage instead of extending `helpers.py`; examples: `validators.py`, `policies.py`, `mappers.py`, `formatters.py`, `tasks.py`, `adapters.py`.
+- If business logic in `service.py` starts splitting into distinct use cases or domains, create `services/` and move to explicit files such as `user_service.py` or `profile_service.py`.
+- If schemas, repositories, routes, or validators start growing independently, split them by responsibility instead of growing one broad file.
+- Treat ambiguous file names as a design smell that must be corrected during implementation, not later.
+
 ## Anti-Patterns
 - Creating deep nested folders in every module before complexity appears.
 - Letting one module file become a catch-all for routes, business logic, persistence, and helpers.
+- Hiding validation, mapping, parsing, policy, formatting, or integration logic inside `helpers.py` because no better file was chosen.
+- Storing executable logic or branching business rules in `constants.py`.
 - Putting domain logic in route handlers.
 - Executing ORM queries or session calls directly inside `service.py`.
 - Coupling schemas, ORM models, and transport contracts as one class.
@@ -72,7 +83,7 @@ Generate a FastAPI project base that:
 
 ## Module Structure Guidelines
 ### Flat-first (default)
-Start every module with:
+Start every module with these core files:
 - `__init__.py`
 - `models.py`
 - `schemas.py`
@@ -80,14 +91,22 @@ Start every module with:
 - `service.py`
 - `routes.py`
 - `dependencies.py`
-- `constants.py`
 - `exceptions.py`
+
+Add these support files only when justified:
+- `constants.py`
 - `helpers.py`
 
 Rationale:
 - Minimal cognitive overhead for new contributors.
 - Fast navigation in early-stage modules.
 - Easy refactor path once growth signals are explicit.
+
+Rules for the flat-first stage:
+- Presence of `constants.py` or `helpers.py` is optional, not mandatory.
+- Do not create `constants.py` until the module has actual constants worth centralizing.
+- Do not create `helpers.py` as a placeholder; create it only when the helpers are small, cohesive, and clearly non-domain-specific.
+- When adding a second unrelated helper or a first meaningful business rule, stop and create a domain-named file instead.
 
 ### Expansion triggers
 Expand a module from flat files to subfolders when one or more apply:
@@ -97,6 +116,7 @@ Expand a module from flat files to subfolders when one or more apply:
 - Schemas become complex (base/request/response/internal variants).
 - Repository/data access logic grows large.
 - Module adds background tasks, events, or domain-specific utilities.
+- `helpers.py` or `service.py` starts acting as a catch-all for unrelated logic.
 
 ### Expanded structure target
 Use this shape after expansion:
@@ -117,7 +137,9 @@ users/
     profile.py
     admin.py
   repositories/
-  helpers.py
+    user_repository.py
+  validators.py
+  mappers.py
   constants.py
   exceptions.py
 ```

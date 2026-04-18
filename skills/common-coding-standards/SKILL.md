@@ -27,6 +27,20 @@ Keep codebases coherent and easy to evolve by applying clear engineering standar
 - Each class, function, and file must have a narrow, explicit responsibility.
 - Split code when a unit starts accumulating unrelated responsibilities, branching by many concerns, or becoming the default place for new logic.
 - Prefer cohesive modules with clear boundaries over central utility blobs or catch-all managers.
+- Do not default to `constants`, `helpers`, `utils`, or similarly generic files for feature logic.
+- Create a dedicated file when logic has a stable domain role such as validation, mapping, policy, parsing, formatting, orchestration, or integration.
+- Treat generic catch-all files as a last resort for truly cross-cutting, low-complexity, framework-agnostic code only.
+- If a generic file starts mixing unrelated concerns, split it immediately into domain-named files.
+- Reject implementations that hide business rules inside `constants.py`, `helpers.py`, `utils.py`, `service.py`, or other ambiguous filenames.
+- Prefer names that reveal responsibility, for example `user_policy.py`, `invoice_formatter.py`, `payload_validator.py`, or `token_parser.py`.
+
+# File Boundary Rules
+
+- `constants.*` may contain only immutable values, enums, and configuration-like declarations for one bounded concern.
+- `helpers.*` is not a default destination for leftover code; use it only for a very small set of closely related, non-domain-specific helpers.
+- `utils.*` must not contain feature behavior, orchestration, persistence, validation policy, or branching business rules.
+- When code answers different reasons to change, split by reason to change instead of grouping by convenience.
+- When a file name would require a broad explanation such as "misc", "common", or "helper", rename and split it.
 
 # Best Practices
 
