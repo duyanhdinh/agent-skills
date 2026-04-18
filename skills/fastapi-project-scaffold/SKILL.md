@@ -53,6 +53,7 @@ Generate a FastAPI project base that:
 ## Best Practices
 - Keep modules independent; avoid cross-module direct database access.
 - Keep business logic in `service.py`; keep routes thin.
+- Require `service.py` to depend on `repository.py` for persistence; services must not call the database directly.
 - Use `Depends` for infrastructure and request-scoped dependencies.
 - Keep shared helpers minimal and framework-agnostic where possible.
 - Use typed settings and explicit environment defaults.
@@ -62,6 +63,7 @@ Generate a FastAPI project base that:
 ## Anti-Patterns
 - Creating deep nested folders in every module before complexity appears.
 - Putting domain logic in route handlers.
+- Executing ORM queries or session calls directly inside `service.py`.
 - Coupling schemas, ORM models, and transport contracts as one class.
 - Sharing mutable global state for request-specific data.
 - Overloading `shared/` into a second monolith.
@@ -73,6 +75,7 @@ Start every module with:
 - `__init__.py`
 - `models.py`
 - `schemas.py`
+- `repository.py`
 - `service.py`
 - `routes.py`
 - `dependencies.py`
@@ -140,6 +143,7 @@ src/
       __init__.py
       models.py
       schemas.py
+      repository.py
       service.py
       routes.py
       dependencies.py
@@ -248,15 +252,30 @@ class UserRead(BaseModel):
     full_name: str
 ```
 
+`src/modules/users/repository.py`
+```python
+from src.modules.users.schemas import UserCreate
+
+
+class UserRepository:
+    async def create_user(self, payload: UserCreate) -> dict[str, str | int]:
+        # Replace with ORM/database code.
+        return {"id": 1, "email": payload.email, "full_name": payload.full_name}
+```
+
 `src/modules/users/service.py`
 ```python
+from src.modules.users.repository import UserRepository
 from src.modules.users.schemas import UserCreate, UserRead
 
 
 class UserService:
+    def __init__(self, repository: UserRepository) -> None:
+        self.repository = repository
+
     async def create_user(self, payload: UserCreate) -> UserRead:
-        # Replace with repository/database logic.
-        return UserRead(id=1, email=payload.email, full_name=payload.full_name)
+        created = await self.repository.create_user(payload)
+        return UserRead(**created)
 ```
 
 `src/modules/users/routes.py`
