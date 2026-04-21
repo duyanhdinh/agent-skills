@@ -16,6 +16,40 @@ Deliver backend features that are correct, observable, secure, and maintainable 
 5. Add telemetry, retries, idempotency, and timeouts where needed.
 6. Validate with unit, integration, and contract tests.
 
+# Behavior Preservation Contract
+
+## Add-vs-Modify Intent
+
+- If the request implies "add", "new", or "create", default to extending the system, not changing existing semantics.
+- Change existing behavior only when the user explicitly says replace, migrate, deprecate, or remove.
+
+## No Silent Repurpose
+
+- Do not repurpose existing artifacts such as endpoints, services, jobs, or workflows in a way that changes their meaning without explicit confirmation.
+- If intent is ambiguous, ask one clarification question before implementation.
+
+## Backward Compatibility Checklist
+
+Before implementation, answer:
+
+- Are existing contracts unchanged?
+- Are existing schedules, triggers, and config defaults unchanged?
+- Will existing tests and consumers keep the same expectations?
+- If any impact exists, list it explicitly and wait for user approval.
+
+## Separation-by-Default
+
+- New capability means a new artifact at the proper boundary, such as handler, service, use case, or scheduler, unless the user explicitly requests consolidation.
+- Internal code reuse is allowed, but public existing behavior must remain unchanged.
+
+## Change Summary Requirement
+
+On completion, report exactly 3 lines:
+
+1. Added: <new capability or artifact>
+2. Preserved: <existing behavior kept unchanged>
+3. Changed/Deprecated: <none, or approved change with user approval>
+
 # Required
 
 - Services own business rules and orchestration only.
