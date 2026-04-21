@@ -1,12 +1,6 @@
 ---
 name: code-review
-description: Perform high-signal code reviews focused on correctness, regressions, security, maintainability, and test adequacy.
-when_to_use: Use when reviewing pull requests, auditing risky changes, or assessing production-readiness before merge.
-tags:
-  - review
-  - quality
-  - risk
-  - governance
+description: Perform high-signal code reviews for pull requests, risky changes, and production-readiness, focused on correctness, regressions, security, maintainability, architectural placement, and test adequacy.
 ---
 
 # Objective
@@ -17,9 +11,18 @@ Identify and communicate defects, risks, and missing validations before code is 
 
 1. Understand change intent and scope from diff plus context.
 2. Assess correctness, edge cases, and regression risks.
-3. Review tests for coverage depth and failure behavior.
-4. Classify findings by severity and include evidence.
-5. Propose concrete remediation and verification steps.
+3. Check architectural placement: layer ownership, side-effect location, and dependency direction.
+4. Review tests for coverage depth and failure behavior.
+5. Classify findings by severity and include evidence.
+6. Propose concrete remediation and verification steps.
+
+# Required
+
+- Treat misplaced behavior as a correctness and maintainability risk, not only style feedback.
+- Flag orchestration, workflow decisions, business side effects, or policy checks placed in persistence helpers, mappers, model files, constants, or generic utilities.
+- Flag dependencies that point from lower-level modules to higher-level modules.
+- Verify handlers, services, domain modules, repositories, adapters, and utilities each keep their expected responsibility.
+- Ask whether the implementation would still be correctly placed if transport, storage, or an external provider changed.
 
 # Best Practices
 
