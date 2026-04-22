@@ -95,3 +95,23 @@
 - You MUST NOT claim success for validation that was not run.
 - You MUST state when validation was skipped, failed, or could not be performed.
 - You MUST separate required output from optional notes when both are present.
+
+## Skills
+
+Skills are stored under `.agents/skills/<skill-name>/SKILL.md`.
+Before starting work, you MUST check whether the task matches one of these skills:
+
+Available skills:
+- debug-mode: Use when diagnosing bugs, failures, regressions, unexpected behavior, logs, errors, or production symptoms before proposing or applying fixes.
+  Path: .agents/skills/debug-mode/SKILL.md
+- design-mode: Use when proposing architecture, flow, ownership, persistence, interface, deployment, or system boundary decisions before implementation.
+  Path: .agents/skills/design-mode/SKILL.md
+- implement-mode: Use when implementing requested behavior, modifying code paths, or extending existing functionality while preserving current behavior and scope.
+  Path: .agents/skills/implement-mode/SKILL.md
+- review-mode: Use when reviewing code, pull requests, diffs, or implementation plans for correctness, security, data loss, regressions, operational risk, and test coverage.
+  Path: .agents/skills/review-mode/SKILL.md
+
+If the user explicitly names a skill, you MUST use that skill.
+If the task clearly matches a skill description, you MUST open that skill’s `SKILL.md` and follow it.
+You MUST NOT apply multiple mode skills at once unless the user explicitly requests it.
+Skills provide supplemental workflow instructions. You MUST still read and follow the current repository context, code, and constraints.
